@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+{% block title %}
+    评教页面
+{% endblock %}
+
+{% block metas %}
+    {{ super() }}
+    
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $('a').on('tap click', function () {
+            if ($(this).attr('id')=='ok') {
+                return;
+            }
+            var opt   = $(this).html();
+            var btn   = $(this).parent().parent().parent().find('button');
+            var input = $(btn).find('input')[0];
+            var span  = $(btn).find('span')[0];
+            $(span).html(opt);
+            $(input).attr('value', opt);
+
+
+        });
+        $('#submit').on('tap click', function () {
+
+            var qt    = $('textarea').val();
+            console.log(qt)
+            var input = $('input[name=qt]');
+
+            $(input).attr('value', qt);
+
+
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+
+        <h1>评教页</h1>
+
+
+        <form class="form-horizontal" method="post" action="pingjiao/save" >
+            <div class="form-group">
+                <div class="col-xs-7">
+                    {{ macros.add_kecheng(kecheng, pingjia['kc'],  pingjia['kh'] )}}
+                </div>
+                <div class="bottom col-xs-5">
+                    任课教师：{{ pingjia['js'] }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <ul class="list-group">
+                        {{ macros.add_item(pingjia['pj']) }}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-xs-12">
+                    <h4>其他评价与建议（限50字）：</h4>
+                    <textarea maxlength="50" class="form-control" rows="4">{{ pingjia['qt'] }}</textarea>
+                    <input name="qt" type="hidden" value="{{ pingjia['qt'] }}">
+                    <input name="vs" type="hidden" value="{{ pingjia['vs'] }}">
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <div class="col-xs-2 col-xs-offset-1">
+
+                </div>
+
+                <div class="col-xs-4 col-xs-offset-2">
+                    <button id='submit' type="submit" class="btn btn-primary btn-lg"> 保存一下</button>
+                </div>
+            </div>
+
+
+        </form>
+
+        <a id='ok' href={{ "/pingjiao/submit?vs=" + pingjia['vs']+"&kh="+pingjia['kh'] }}>
+            <button id="ok" class="btn btn-default btn-lg"> 所有课程评完，最后点我</button>
+        </a>
+        <p>
+            <br>
+            <br>
+            <br>
+            <br>
+        </p>
+
+
+    </div>
+
+{% endblock %}
+
+
+{% macro add_kecheng(kecheng, selected, kehao) %}
+    <div class="dropdown">
+        <span>　请选择课程：</span>
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+            <span>{{ selected }}</span>
+            <input name="kh" type="hidden" value="{{ kehao }}">
+            <span class="caret"></span>
+
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% for opt in kecheng %}
+                <li><a href={{"?url=" + opt['url']}}>{{ opt['name'] }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endmacro %}
+
+
+
+{% macro add_item(item)  %}
+    {# item[0]是对照表  #}
+
+    {% for i in item[1:] %}
+
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-9">
+                    {# 评教内容 #}
+                    {{ i['pjnr'] }}
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="dropdown" style="float: right;">
+                        <button id="dropdownMenu1"
+                                class="btn btn-default dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span>{{ i['dj']['select']['value'] }}</span>
+                            <input name="{{ i['dj']['select']['name'] }}" type="hidden" value="{{ i['dj']['select']['value'] }}">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                            {% for opt in i['dj']['options'] %}
+                                <li>
+                                    <a>{{ opt }}</a>
+                                </li>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </li>
+    {% endfor %}
+{% endmacro %}

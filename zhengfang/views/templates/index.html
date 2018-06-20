@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    首页
+{% endblock %}
+
+{% block metas %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>公告</h1>
+        <p>
+            {{ notice|safe }}
+        </p>
+
+    </div>
+
+{% endblock %}
+
+

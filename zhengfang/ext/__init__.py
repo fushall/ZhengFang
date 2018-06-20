@@ -1,0 +1,1 @@
+from .bootstrap import change_cdn

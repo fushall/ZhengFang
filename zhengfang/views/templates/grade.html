@@ -1,0 +1,51 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    成绩单
+{% endblock %}
+
+{% block metas %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+
+{% endblock %}
+{% block navbar %}
+
+{% endblock %}
+
+{% block content %}
+
+	<div class="container-fluid">
+    <h1>成绩</h1>
+    <br>
+    {% for term, items in grade.items() %}
+
+        <table class="table">
+        <tr class="row">
+            <th class="col-xs-9">{{ term[:-2] }}学年　第{{ term[-1] }}学期</th>
+            <th class="col-xs-3"></th>
+        </tr>
+        {% for item in items %}
+            <tr class="row">
+                <td class="col-xs-10">{{ item[1] }}</td>
+                <td class="col-xs-2">
+                    <!--todo:警告图标-->
+                    {{ item[6] }}
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </table>
+    {% endfor %}
+
+    </div>
+{% endblock %}
+
+

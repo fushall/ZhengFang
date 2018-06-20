@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %}
+    教务系统，手机版
+{% endblock %}
+
+{% block metas %}
+    {{ super() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h2 style="text-align: center">api</h2>
+    <p>GET /denglu?xh=20111104444&mm=123456789</p>
+    <p>参数1：xh (学号)</p>
+    <p>参数2：mm (密码)</p>
+    <br>
+
+    <p>GET /chengji</p>
+    <p>无参数，登陆成功才可以使用</p>
+    <br><br>
+    <p>注意：建议用火狐浏览器调试 /chengji接口</p>
+
+    <br><br>
+    <h4>测试区：</h4>
+    <form action="denglu" method="GET">
+        <div class="form-group">
+            <label>学号：</label>
+            <input class="form-control" name="xh">
+        </div>
+        <div class="form-group">
+            <label>密码：</label>
+            <input class="form-control" name="mm">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">提交</button>
+        </div>
+    </form>
+    <br>
+    <a href="chengji"><button class="btn btn-info" >成绩查询（先登录，成功后才可查询）</button></a>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+{% endblock %}

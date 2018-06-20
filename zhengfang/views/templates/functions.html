@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    教务系统
+{% endblock %}
+
+{% block metas %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+
+    <style>
+
+
+        .footer, h3 {
+            text-align: center;
+        }
+
+        .form-control {
+            font-size: 17px;
+            line-height: 1.47058824;
+            height: 40px;
+        }
+
+        .title {
+            margin-top: .77em;
+            margin-bottom: .3em;
+            padding-right: 15px;
+            font-size: 16px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h1>功能页面</h1>
+
+        <div class="row">
+            <div class="col-sx-4">
+                <a href="/grade">
+                    <button class="btn btn-info">在校成绩</button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sx-4">
+                <a href="/evaluate">
+                    <button class="btn btn-info">教学质量评价</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+{% endblock %}
+
+
+
